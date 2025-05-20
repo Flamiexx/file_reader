@@ -1,6 +1,7 @@
 import pandas as pd
 import pyreadstat
 import streamlit as st
+from constants import CSV_SEPARATOR
 
 
 def load_file(path: str, filename: str):
@@ -12,10 +13,7 @@ def load_file(path: str, filename: str):
         df, _ = pyreadstat.read_xport(path)
         return df, None
     elif filename.endswith(".csv"):
-        try:
-            df = pd.read_csv(path, sep='$', engine='python')
-        except Exception:
-            df = pd.read_csv(path)
+        df = pd.read_csv(path, sep=CSV_SEPARATOR, engine="python")
         return df, None
     elif filename.endswith(".xlsx"):
         xls = pd.ExcelFile(path)
